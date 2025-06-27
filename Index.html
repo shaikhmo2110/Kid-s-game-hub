@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://fpyf8.com/88/tag.min.js" data-zone="154094" async data-cfasync="false"></script>
+    <meta name="monetag" content="dc993a1ac30be0060fffca014ae1ae30">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kids Game World</title>
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Fredoka+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #FF9E00;
+            --secondary: #FF6B6B;
+            --accent: #4ECDC4;
+            --light: #F7FFF7;
+            --dark: #292F36;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Comic Neue', cursive;
+            background: linear-gradient(135deg, var(--light), #E0F7FA);
+            color: var(--dark);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            animation: bounce 2s infinite;
+        }
+        
+        h1 {
+            font-family: 'Fredoka One', cursive;
+            color: var(--secondary);
+            font-size: 3rem;
+            text-shadow: 3px 3px 0 rgba(0,0,0,0.1);
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            color: var(--primary);
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+        
+        .search-container {
+            max-width: 600px;
+            margin: 0 auto 30px;
+            position: relative;
+        }
+        
+        #search {
+            width: 100%;
+            padding: 15px 20px;
+            border-radius: 50px;
+            border: 3px solid var(--primary);
+            font-size: 1.2rem;
+            font-family: 'Comic Neue', cursive;
+            outline: none;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+        
+        #search:focus {
+            border-color: var(--accent);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        
+        .search-icon {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+        
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 25px;
+            padding: 20px;
+        }
+        
+        .game-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-align: center;
+            border: 4px solid transparent;
+        }
+        
+        .game-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 20px rgba(0,0,0,0.15);
+            border-color: var(--accent);
+        }
+        
+        .game-icon {
+            width: 100%;
+            height: 150px;
+            object-fit: contain;
+            background: #f5f5f5;
+            padding: 15px;
+        }
+        
+        .game-name {
+            padding: 15px 10px;
+            font-weight: bold;
+            color: var(--dark);
+            font-size: 1.1rem;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .no-results {
+            text-align: center;
+            grid-column: 1 / -1;
+            padding: 50px;
+            font-size: 1.5rem;
+            color: var(--secondary);
+        }
+        
+        .loading {
+            text-align: center;
+            grid-column: 1 / -1;
+            padding: 50px;
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: var(--dark);
+            font-size: 0.9rem;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        @media (max-width: 768px) {
+            .games-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                gap: 15px;
+                padding: 10px;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .games-grid {
+                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+                gap: 10px;
+            }
+            
+            .game-icon {
+                height: 100px;
+            }
+            
+            .game-name {
+                font-size: 0.9rem;
+                padding: 10px 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Kids Game World</h1>
+        <div class="subtitle">Click on any game to start playing!</div>
+    </header>
+    
+    <div class="search-container">
+        <input type="text" id="search" placeholder="Search for games...">
+        <i class="fas fa-search search-icon"></i>
+    </div>
+    
+    <div class="games-grid" id="gamesContainer">
+        <div class="loading">
+            <i class="fas fa-spinner fa-spin"></i> Loading games...
+        </div>
+    </div>
+    
+    <footer>
+        © 2023 Kids Game World | All games belong to their respective owners
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const gamesContainer = document.getElementById('gamesContainer');
+            const searchInput = document.getElementById('search');
+            
+            // Load CSV data from Google Sheets
+            function loadGames() {
+                const csvUrl = 'https://docs.google.com/spreadsheets/d/1BQmcr_ULhox2-7SUFf0VdB7MKc2eZX_8wmXd95i9pyE/export?format=csv';
+                
+                Papa.parse(csvUrl, {
+                    download: true,
+                    header: true,
+                    skipEmptyLines: true,
+                    complete: function(results) {
+                        displayGames(results.data);
+                    },
+                    error: function(error) {
+                        gamesContainer.innerHTML = `<div class="no-results">Oops! Couldn't load games. Please try again later.</div>`;
+                        console.error('Error loading CSV:', error);
+                    }
+                });
+            }
+            
+            // Display games in grid
+            function displayGames(games) {
+                if (!games || games.length === 0) {
+                    gamesContainer.innerHTML = `<div class="no-results">No games found!</div>`;
+                    return;
+                }
+                
+                let html = '';
+                
+                games.forEach(game => {
+                    if (game.Name && game.Link) {
+                        html += `
+                            <div class="game-card" data-name="${game.Name.toLowerCase()}" onclick="window.open('${game.Link}', '_blank')">
+                                <img src="${game.Icon || 'https://via.placeholder.com/150?text=Game'}" alt="${game.Name}" class="game-icon" onerror="this.src='https://via.placeholder.com/150?text=Game'">
+                                <div class="game-name">${game.Name}</div>
+                            </div>
+                        `;
+                    }
+                });
+                
+                gamesContainer.innerHTML = html || `<div class="no-results">No games found!</div>`;
+            }
+            
+            // Search functionality
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase();
+                const gameCards = document.querySelectorAll('.game-card');
+                
+                let hasResults = false;
+                
+                gameCards.forEach(card => {
+                    const gameName = card.getAttribute('data-name');
+                    if (gameName.includes(searchTerm)) {
+                        card.style.display = 'block';
+                        hasResults = true;
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+                
+                if (!hasResults) {
+                    gamesContainer.innerHTML = `<div class="no-results">No games found matching "${searchTerm}"</div>`;
+                }
+            });
+            
+            // Load games on page load
+            loadGames();
+        });
+    </script>
+</body>
+</html>
